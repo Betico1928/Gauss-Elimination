@@ -1,3 +1,7 @@
+% ELIMINACION GAUSSEANA
+% ALBERTO VIGNA & ANDRES SALAMANCA
+
+
 % Preguntar cuantas variables va a haber en la matriz cuadrada
 prompt = "¿Cuántas variables deseas en tu matriz?: ";
 n = input(prompt);
