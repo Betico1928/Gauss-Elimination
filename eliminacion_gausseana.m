@@ -50,7 +50,7 @@ else
 end
 
 
-% Hacer las operaciones:
+% Hacer las operaciones de eliminación gaussiana
 for i = 1:n-1
     for j = i+1:n
         factorElemento = MatrizA(j, i) / MatrizA(i, i);
@@ -58,6 +58,30 @@ for i = 1:n-1
         MatrizA(j, :) = MatrizA(j, :) - factorElemento * MatrizA(i, :);
         MatrizB(j) = MatrizB(j) - factorElemento * MatrizB(i);
     end
+
+    % Verificar si hay valores infinitos o NaN en MatrizA
+    if any(isinf(MatrizA(:))) || any(isnan(MatrizA(:)))
+        disp("Error: Se encontraron valores infinitos o NaN en la matriz A.");
+        return;
+    end
+
+    % Verificar si hay valores infinitos o NaN en MatrizB
+    if any(isinf(MatrizB(:))) || any(isnan(MatrizB(:)))
+        disp("Error: Se encontraron valores infinitos o NaN en la matriz B.");
+        return;
+    end
+end
+
+% Verificar si hay valores infinitos o NaN en MatrizA después de las operaciones
+if any(isinf(MatrizA(:))) || any(isnan(MatrizA(:)))
+    disp("Error: Se encontraron valores infinitos o NaN en la matriz A después de las operaciones.");
+    return;
+end
+
+% Verificar si hay valores infinitos o NaN en MatrizB después de las operaciones
+if any(isinf(MatrizB(:))) || any(isnan(MatrizB(:)))
+    disp("Error: Se encontraron valores infinitos o NaN en la matriz B después de las operaciones.");
+    return;
 end
 
 disp("Matriz A después de las operaciones:");
@@ -65,8 +89,6 @@ disp(MatrizA);
 
 disp("Matriz B después de las operaciones:");
 disp(MatrizB);
-
-
 
 % Resolver el sistema de ecuaciones mediante sustitución hacia atrás
 solucion = zeros(n, 1);
@@ -78,6 +100,11 @@ for i = n:-1:1
     end
 end
 
+% Verificar si hay valores infinitos o NaN en la solución
+if any(isinf(solucion(:))) || any(isnan(solucion(:)))
+    disp("Error: Se encontraron valores infinitos o NaN en la solución del sistema de ecuaciones.");
+    return;
+end
+
 disp("La solución del sistema de ecuaciones es:");
 disp(solucion);
-
