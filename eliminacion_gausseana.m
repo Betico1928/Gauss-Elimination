@@ -1,14 +1,13 @@
-% ELIMINACION GAUSSEANA
+% ELIMINACION GAUSSEANA CON CAMBIO DE FILAS
 % ALBERTO VIGNA & ANDRES SALAMANCA
 
-
-% Preguntar cuantas variables va a haber en la matriz cuadrada
+% Preguntar cuántas variables va a haber en la matriz cuadrada
 prompt = "¿Cuántas variables deseas en tu matriz?: ";
 n = input(prompt);
 
 disp("Ingresa los elementos de la matriz A:");
 MatrizA = zeros(n);
-MatrizB = zeros(n,1);
+MatrizB = zeros(n, 1);
 
 for fila = 1:n
     fprintf('\nFila %d:\n', fila);
@@ -28,8 +27,6 @@ disp(MatrizA);
 disp("Tu matriz B es:");
 disp(MatrizB);
 
-
-
 % Algoritmo:
 
 % Verificar si el elemento en la posición (1,1) de la matriz A es igual a 0
@@ -42,20 +39,18 @@ else
     disp("El elemento en la posición (1,1) de la matriz A NO es igual a 0. --> Se puede continuar");
 end
 
-
-% Verificar que el determinante NO sea distinto de 0
-if det(MatrizA) == 0
-    disp("El determinante de la matriz A es igual a 0.");
-    disp("");
-    disp("Cerrando el programa...");
-    return; % Salir del bucle y detener la ejecución.
-else
-    disp("El determinante de la matriz es NO igual a 0. --> Se puede continuar");
-end
-
-
-% Hacer las operaciones de eliminación gaussiana
+% Hacer las operaciones de eliminación gaussiana con cambio de filas
 for i = 1:n-1
+    % Verificar y realizar cambio de filas si es necesario
+    if MatrizA(i, i) == 0
+        disp("Realizando cambio de filas...");
+        [maxVal, maxIndex] = max(abs(MatrizA(i+1:n, i))); % Encontrar el máximo en la columna debajo de la diagonal
+        maxIndex = maxIndex + i; % Ajustar el índice al rango completo
+        % Intercambiar filas en MatrizA y MatrizB
+        MatrizA([i, maxIndex], :) = MatrizA([maxIndex, i], :);
+        MatrizB([i, maxIndex]) = MatrizB([maxIndex, i]);
+    end
+    
     for j = i+1:n
         factorElemento = MatrizA(j, i) / MatrizA(i, i);
 
